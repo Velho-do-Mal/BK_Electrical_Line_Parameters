@@ -60,8 +60,8 @@ Ou, para ver a tabela de validação diretamente no terminal:
 python3 exemplo_validacao.py
 ```
 
-A mesma validação também está disponível dentro do app, na página
-**"7. Validação Excel × Python"**.
+(A validação não é exibida dentro do aplicativo — é uma verificação de
+desenvolvimento/QA, roda por linha de comando ou pytest.)
 
 ## Estrutura do projeto
 
@@ -75,7 +75,7 @@ app_parametros_lt/
 ├── exemplo_validacao.py         # Caso-exemplo de fábrica da planilha + tabela de validação
 ├── requirements.txt
 ├── templates/
-│   └── logo_bk.jpeg              # Logo BK Engenharia (usado na interface e no relatório)
+│   └── logo_bk.jpeg              # Logo BK Engenharia (usado apenas na interface do app)
 ├── tests/
 │   └── test_calculos.py            # Testes automatizados (pytest) — inclui validação Excel×Python
 └── referencia/

@@ -19,7 +19,6 @@ import streamlit as st
 import calculos as c
 import dados
 import validacoes as v
-from exemplo_validacao import ENTRADA_EXEMPLO, gerar_tabela_validacao
 
 try:
     import relatorio
@@ -126,7 +125,7 @@ with st.sidebar:
     pagina = st.radio(
         "Navegação",
         ["1. Identificação", "2. Entrada de Dados", "3. Cálculo", "4. Resultados",
-         "5. Memória de Cálculo", "6. Relatório Word", "7. Validação Excel × Python"],
+         "5. Memória de Cálculo", "6. Relatório Word"],
         label_visibility="collapsed",
     )
     st.divider()
@@ -479,33 +478,6 @@ elif pagina == "6. Relatório Word":
             st.download_button("⬇️ Baixar .docx", data=doc_bytes, file_name=nome_arquivo,
                                 mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                                 type="primary")
-
-
-# ---------------------------------------------------------------------------
-# PÁGINA 7 — VALIDAÇÃO EXCEL × PYTHON
-# ---------------------------------------------------------------------------
-
-elif pagina == "7. Validação Excel × Python":
-    cabecalho()
-    st.markdown('<div class="bk-secao">Validação Excel × Python</div>', unsafe_allow_html=True)
-    st.write(
-        "Reproduz o caso-exemplo de fábrica da planilha original "
-        "(`CELT2IPOG_calculo_eletrico_de_LTs.xlsm`) e compara cada resultado calculado "
-        "pelo Python com o valor lido diretamente da célula do Excel."
-    )
-    if st.button("▶️ Rodar validação"):
-        linhas = gerar_tabela_validacao()
-        n_ok = sum(1 for l in linhas if l.status == "OK")
-        st.metric("Itens validados", f"{n_ok} / {len(linhas)}")
-        st.table([
-            {"Item": l.item, "Origem (Excel)": l.origem, "Excel": f"{l.excel:.6f}", "Python": f"{l.python:.6f}",
-             "Unidade": l.unidade, "Diferença %": f"{l.diferenca_pct:.6f}", "Status": l.status}
-            for l in linhas
-        ])
-        if n_ok == len(linhas):
-            st.success("Todos os itens dentro da tolerância — software valida corretamente a metodologia original.")
-        else:
-            st.error("Há divergências acima da tolerância — revisar antes de liberar o software.")
 
 
 st.markdown(f'<div class="bk-footer">BK Engenharia e Tecnologia · www.bk-engenharia.com · '
