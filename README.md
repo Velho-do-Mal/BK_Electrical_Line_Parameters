@@ -27,8 +27,11 @@ auditoria/rastreabilidade), validada célula a célula — ver seção
 - Caso 2 (avançado/opcional) — energização com tensão de emissor
   especificada.
 - Memória de cálculo completa (fórmula → substituição numérica →
-  resultado) e geração de relatório técnico em Word (.docx), no padrão
-  documental BK Engenharia.
+  resultado) e geração de relatório técnico em Word (.docx), **no padrão
+  documental oficial BK Engenharia** (capa/carimbo, cabeçalho e rodapé
+  padronizados, sumário, os 10 títulos fixos da família BK Engineering
+  Tools, e equações nativas do Word — editáveis no editor de equações do
+  Word, não imagens nem texto simples).
 
 ## Instalação
 
@@ -71,17 +74,49 @@ app_parametros_lt/
 ├── calculos.py              # Motor de cálculo (engenharia) — sem dependência de Streamlit
 ├── dados.py                  # Catálogos de condutores (CA/CAA/CAL) e estruturas (1-15)
 ├── validacoes.py              # Validação das entradas do usuário
-├── relatorio.py                # Geração da memória de cálculo em Word (.docx)
+├── relatorio.py                # Geração da memória de cálculo em Word (.docx) — padrão BK
+├── equations.py                 # Construtor de equações nativas do Word (OMML), usado por relatorio.py
 ├── exemplo_validacao.py         # Caso-exemplo de fábrica da planilha + tabela de validação
 ├── requirements.txt
 ├── templates/
-│   └── logo_bk.jpeg              # Logo BK Engenharia (usado apenas na interface do app)
+│   ├── logo_bk.jpeg              # Logo BK Engenharia (usado na interface do app)
+│   └── BK_Template_Padrao.docx    # Modelo Word oficial BK (capa, cabeçalho, rodapé, estilos)
 ├── tests/
 │   └── test_calculos.py            # Testes automatizados (pytest) — inclui validação Excel×Python
 └── referencia/
     ├── CELT2IPOG_calculo_eletrico_de_LTs.xlsm   # Planilha original (fonte de verdade)
     └── Mapa_Calculos_LT_CELT2IPOG.md              # Engenharia reversa célula-a-célula
 ```
+
+## Sobre o relatório Word (memória de cálculo)
+
+O relatório gerado por `relatorio.py` segue **exatamente** o padrão oficial
+de documentos técnicos da BK Engenharia (mesmo modelo usado pela família
+completa BK Engineering Tools):
+
+- Capa/carimbo com histórico de revisões, bloco de assinaturas, logo BK
+  e identificação do documento (Nº doc., folha, revisão).
+- Cabeçalho e rodapé padronizados em todas as páginas de conteúdo (código,
+  revisão, documento, aprovação, numeração automática de página; rodapé
+  com texto legal e contato da BK).
+- Sumário e os **10 títulos fixos** do padrão documental BK: Objetivo,
+  Documentos de Referência, Normas Técnicas Adotadas, Metodologia de
+  Cálculo, Dados de Entrada e Considerações Gerais, Dimensionamento e
+  Verificações, Quantitativos (não aplicável a este aplicativo — mantido
+  por padronização), Resultados Obtidos, Conclusões e Referências
+  Bibliográficas.
+- **Equações nativas do Word** (formato OMML, o mesmo do recurso "Inserir
+  Equação" do Word) — o engenheiro pode clicar em qualquer fórmula do
+  relatório e editá-la no editor de equações nativo, sem depender de
+  imagem ou de texto simples.
+- Fórmula → substituição numérica → resultado, com tabelas de resultados
+  no mesmo padrão visual (cabeçalho cinza-claro, bordas simples, fonte
+  Arial) usado em toda a família BK Engineering Tools.
+
+Se for necessário atualizar o modelo visual (nova versão do carimbo BK,
+mudança de contato, etc.), edite `templates/BK_Template_Padrao.docx`
+diretamente no Word — `relatorio.py` reutiliza a capa, cabeçalho, rodapé e
+estilos desse arquivo para todo relatório gerado.
 
 ## Premissas que necessitam validação da engenharia responsável
 
